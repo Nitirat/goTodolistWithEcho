@@ -2,6 +2,7 @@ package main
 
 import (
 	"net/http"
+	"os"
 	"strconv"
 
 	"github.com/labstack/echo"
@@ -77,6 +78,10 @@ func main() {
 	e.PUT("/tasks/:id", updateTask)
 	e.DELETE("/tasks/:id", deleteTask)
 
+	var PORT string
+	if PORT = os.Getenv("PORT"); PORT == "" {
+		PORT = ":8099"
+	}
 	// Start server
-	e.Logger.Fatal(e.Start(":8099"))
+	e.Logger.Fatal(e.Start(PORT))
 }
